@@ -1,8 +1,8 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { Configuration, Credentials } from './Configuration';
+import { JWT } from 'google-auth-library'
 import buildExporter from './exporter/Exporter';
-import JSONExporter from './exporter/JSONExporter';
-import SheetProcessor, { I18nMap } from './SheetProcessor';
+import SheetProcessor from './SheetProcessor';
 import fs from 'fs';
 import path from 'path';
 
@@ -13,7 +13,7 @@ export default class DocumentLoader {
   conf: Configuration;
 
   constructor(conf: Configuration) {
-    this.doc = new GoogleSpreadsheet(conf.docID);
+    
     this.conf = conf;
 
     let credentials = conf.credentials;
@@ -25,12 +25,11 @@ export default class DocumentLoader {
     }
 
     const { client_email, private_key } = credentials as Credentials;
+    const jwt = new JWT({email: client_email, key: private_key, scopes: ['https://www.googleapis.com/auth/spreadsheets'] })
 
-    this.docLoading = this.doc
-      .useServiceAccountAuth({ client_email, private_key })
-      .then(() => {
-        return this.doc.loadInfo();
-      });
+    this.doc = new GoogleSpreadsheet(conf.docID, jwt);
+
+    this.docLoading = this.doc.loadInfo();
   }
 
   process(): Promise<void> {

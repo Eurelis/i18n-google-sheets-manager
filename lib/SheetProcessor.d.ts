@@ -1,8 +1,8 @@
 import { GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
-export declare type I18nKey = {
+export type I18nKey = {
     [key: string]: string;
 };
-export declare type I18nMap = {
+export type I18nMap = {
     [key: string]: I18nKey;
 };
 export default class SheetProcessor {

@@ -2,8 +2,8 @@
 
 import path from 'path';
 import { Command, Option as COption } from 'commander';
-import { loadConfiguration } from './configuration';
-import DocumentLoader from './documentLoader';
+import { loadConfiguration } from './Configuration';
+import DocumentLoader from './DocumentLoader';
 
 const program = new Command();
 program
