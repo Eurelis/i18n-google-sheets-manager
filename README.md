@@ -1,4 +1,4 @@
-# i18n-google-sheets-importer
+# i18n-google-sheets-manager
 
 Export translation files from Google Docs spreadsheets.
 
@@ -41,7 +41,7 @@ Prop | Description | Type | Default
 Prop | Description | Type | Default
 ------ | ------ | ------ | ------
 **`sheetIndex`** | index of sheet | number | **Required**
-**`method`** | 'json' or 'yaml' file export | string | **Required**
+**`method`** | 'json', 'yaml', 'po', 'strings' or 'android' file export | string | **Required**
 **`outputDir`** | path of output directory | string | **Required**
 **`fileName`** | filename / path relative to output dir, can contain a mustache value {{locale}}, ie: '{{locale}}.json' | string | optional
 **`keyPathSeparator`** | Separator used on key, false to disable key extraction | string or false| "."
@@ -60,12 +60,31 @@ example file
       "outputDir": "./export/",
       "fileName": "{{locale}}/message_{{locale}}.json"
     },
-     {
+    {
       "sheetIndex": 0,
       "keyPathSeparator": ".",
       "method": "yaml",
       "outputDir": "./export/",
       "fileName": "{{locale}}/message_{{locale}}.yml"
+    },
+    {
+      "sheetIndex": 0,
+      "keyPathSeparator": ".",
+      "method": "po",
+      "outputDir": "./export/",
+      "fileName": "{{locale}}/LC_MESSAGES/message.po"
+    },
+    {
+      "sheetIndex": 0,
+      "method": "strings",
+      "outputDir": "./export/",
+       "fileName": "{{locale}}.lproj/Localizable.strings"
+    },
+    {
+      "sheetIndex": 0,
+      "method": "android",
+      "outputDir": "./export/",
+      "fileName": "values-{{locale}}/strings.xml"
     }
   ]
 }
